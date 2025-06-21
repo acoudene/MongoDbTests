@@ -1,0 +1,23 @@
+[
+  {
+    "_id": {
+      "$oid": "6669987d9a51243d4da9bb85"
+    },
+    "_t": "myMain",
+    "uuid": {
+      "$binary": {
+        "base64": "dVO/hNekSAypoGgbzCboZA==",
+        "subType": "04"
+      }
+    },
+    "mySubs": [
+      {
+        "result": "result"
+      },
+      {
+        "result": "result"
+      }
+    ]
+  }
+]
+
