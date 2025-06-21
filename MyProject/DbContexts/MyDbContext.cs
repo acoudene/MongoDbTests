@@ -24,6 +24,10 @@ public class MyDbContext : DbContext
       .Entity<MyMainEntity>(e =>
       {
         e.ToCollection("myMains");
+
+        e.HasDiscriminator()
+        .HasValue<MyMainEntity>("myMain");
+        
         e.OwnsMany(p => p.MySubs)
         .HasElementName("mySubs")
         .Property(p => p.Result)

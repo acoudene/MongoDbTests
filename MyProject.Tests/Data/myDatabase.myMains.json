@@ -3,6 +3,7 @@
     "_id": {
       "$oid": "6669987d9a51243d4da9bb85"
     },    
+    "_t": "myMain",
     "mySubs": [
       {
         "result": "1"
