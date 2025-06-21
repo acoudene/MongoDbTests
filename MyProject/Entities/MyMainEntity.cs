@@ -6,20 +6,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MyProject.Entities;
 
-[BsonIgnoreExtraElements]
-//[BsonDiscriminator("myMain", Required = true)]
-public record MyMainEntity /*: IObjectIdMongoDbEntity*/
+public record MyMainEntity
 {
-  [BsonId]
-  [BsonElement("_id")]
-  [BsonRepresentation(representation: BsonType.ObjectId)]
-  //[BsonIgnoreIfDefault]
-  public ObjectId ObjectId { get; set; }
+  public ObjectId Id { get; set; }
 
-  [BsonElement("uuid")]
-  //[BsonGuidRepresentation(GuidRepresentation.Standard)]
-  public required Guid Id { get; set; }
-
-  [BsonElement("mySubs")]
   public List<MySubEntity> MySubs { get; set; } = Enumerable.Empty<MySubEntity>().ToList();
 }

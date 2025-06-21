@@ -1,9 +1,11 @@
 // Changelogs Date  | Author                | Description
 // 2023-12-23       | Anthony Coudène       | Creation
 
+using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MyProject.DbContexts;
+using MyProject.Entities;
 using MyProject.Repositories;
 using MyProject.Tests.Data;
 using Testcontainers.MongoDb;
@@ -80,10 +82,40 @@ public class MyMainRepositoryTests : IAsyncLifetime
     var repository = new MyMainRepository(dbContext);
 
     // Act
-    var entities = repository.GetEntities()
-      .ToList();
+    var entities = await repository.GetEntities()
+      .ToListAsync();
 
     // Assert
+    Assert.NotNull(entities);
+    Assert.NotEmpty(entities);
+    Assert.NotEmpty(entities.SelectMany(e => e.MySubs));
+  }
+
+  [Theory]
+  [ClassData(typeof(SeedDataTheoryData))]
+  public async Task GetEntities_create_entities_into_database(SeedDataBuilder seedDataBuilder)
+  {
+    // Arrange
+    var seedData = DoSeedData(seedDataBuilder);
+    using var dbContext = CreateDbContextBuilder()
+      .WithDatabaseName(seedData.DatabaseName)
+      .Build();
+    var repository = new MyMainRepository(dbContext);
+
+    // Act
+    var dbSetEntities = repository.GetEntities();
+    dbSetEntities.Add(new MyMainEntity()
+    {
+      MySubs = [
+        new MySubEntity { Result = "3"},
+        new MySubEntity { Result = "4"},
+      ]
+    });
+
+    await dbContext.SaveChangesAsync();
+
+    // Assert
+    var entities = await dbSetEntities.ToListAsync();
     Assert.NotNull(entities);
     Assert.NotEmpty(entities);
     Assert.NotEmpty(entities.SelectMany(e => e.MySubs));

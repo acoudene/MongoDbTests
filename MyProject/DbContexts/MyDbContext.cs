@@ -20,50 +20,15 @@ public class MyDbContext : DbContext
   {
     base.OnModelCreating(modelBuilder);
 
-    modelBuilder.Entity<MyMainEntity>()
-      .ToCollection("myMains")
-      .HasMany(e => e.MySubs)
-      .WithOne()
-      ;
-
-    modelBuilder.Entity<MyMainEntity>()
-      .HasDiscriminator()
-      .HasValue<MyMainEntity>("myMain");
-
-    modelBuilder.Entity<MyMainEntity>()
-      .HasKey(p => p.ObjectId);
-
-    modelBuilder.Entity<MyMainEntity>()
-      .Property(p => p.ObjectId)
-      .HasElementName("_id");
-
-    modelBuilder.Entity<MyMainEntity>()
-      .Property(p => p.Id)
-      .HasElementName("uuid");
-
-    //modelBuilder.Entity<RequestFormMongoDbEntity>()
-    //  .Property(p => p.Fields)
-    //  .HasElementName("fields");
-
-    //modelBuilder.Entity<FieldMongoDbEntityBase>()
-    //  .HasDiscriminator()
-    //  //.HasValue<FieldMongoDbEntityBase>("field")
-    //  .HasValue<FieldMongoDbEntity>("customerDefined");
-
-    //modelBuilder.Entity<FieldMongoDbEntity>()
-    //  .Property(p => p.FieldTemplate)
-    //  .HasElementName("fieldTemplate");
-
-    modelBuilder.Entity<MySubEntity>()
-      .Property(p => p.Result)
-      .HasElementName("result");
-
-    //modelBuilder.Entity<FieldTemplateMongoDbEntity>()
-    //  .Property(p => p.Name)
-    //  .HasElementName("name");
-
-    //modelBuilder.Entity<FieldTemplateMongoDbEntity>()
-    //  .Property(p => p.DisplayName)
-    //  .HasElementName("displayName");
+    modelBuilder
+      .Entity<MyMainEntity>(e =>
+      {
+        e.ToCollection("myMains");
+        e.OwnsMany(p => p.MySubs)
+        .HasElementName("mySubs")
+        .Property(p => p.Result)
+        .HasElementName("result");
+      });
+          
   }
 }
