@@ -32,6 +32,11 @@ public class MyDbContext : DbContext
         .HasElementName("mySubs")
         .Property(p => p.Result)
         .HasElementName("result");
+
+        e.OwnsMany(p => p.MyPolys)
+        .HasElementName("myPolys")
+        .Property(p => p.Name)
+        .HasElementName("name"); 
       });
           
   }

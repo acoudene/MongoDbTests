@@ -11,6 +11,14 @@
       {
         "result": "2"
       }
+    ],
+    "myPolys": [
+      {
+        "name": "poly1"
+      },
+      {
+        "name": "poly2"
+      }
     ]
   }
 ]
