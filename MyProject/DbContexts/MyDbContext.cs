@@ -27,17 +27,40 @@ public class MyDbContext : DbContext
 
         e.HasDiscriminator()
         .HasValue<MyMainEntity>("myMain");
-        
+
         e.OwnsMany(p => p.MySubs)
         .HasElementName("mySubs")
         .Property(p => p.Result)
         .HasElementName("result");
 
-        e.OwnsMany(p => p.MyPolys)
+        //Func<MyPolyEntity, Dictionary<string, string>> polyToDic = poly =>
+        //{
+        //  return new Dictionary<string, string>()
+        //  {
+        //    { "name", poly.Name }
+        //  };
+        //};
+
+        //Func<Dictionary<string, string>, MyPolyEntity> dicToPoly = dic =>
+        //{
+        //  return new MyPolyEntity
+        //  {
+        //    Name = dic.TryGetValue("name", out string? name) ? name : string.Empty
+        //  };
+        //};
+
+        e.Property(p => p.MyPolys)
         .HasElementName("myPolys")
-        .Property(p => p.Name)
-        .HasElementName("name"); 
+        .HasConversion(
+          polies => polies,
+          dics => dics)
+        ;
+
+        //e.OwnsMany(p => p.MyPolys/*)*/
+        //.HasElementName("myPolys")
+        //.Property(p => p.Name)
+        //.HasElementName("name"); 
       });
-          
+
   }
 }

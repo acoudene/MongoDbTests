@@ -11,5 +11,7 @@ public record MyMainEntity
 
   public List<MySubEntity> MySubs { get; set; } = Enumerable.Empty<MySubEntity>().ToList();
 
-  public List<MyPolyEntity> MyPolys { get; set; } = Enumerable.Empty<MyPolyEntity>().ToList();
+  //public List<MyPolyEntity> MyPolys { get; set; } = Enumerable.Empty<MyPolyEntity>().ToList();
+  
+  public List<Dictionary<string, string>> MyPolys { get; set; } = Enumerable.Empty<Dictionary<string, string>>().ToList();
 }

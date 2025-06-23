@@ -14,9 +14,11 @@
     ],
     "myPolys": [
       {
+        "_t": "myPoly",
         "name": "poly1"
       },
       {
+        "_t": "myPoly",
         "name": "poly2"
       }
     ]
