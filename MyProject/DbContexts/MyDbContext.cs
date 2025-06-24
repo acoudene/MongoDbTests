@@ -2,8 +2,11 @@
 // 2023-12-23       | Anthony Coudène       | Creation
 
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.EntityFrameworkCore.Extensions;
 using MyProject.Entities;
+using System.Linq.Expressions;
 
 namespace MyProject.DbContexts;
 
@@ -33,33 +36,22 @@ public class MyDbContext : DbContext
         .Property(p => p.Result)
         .HasElementName("result");
 
-        //Func<MyPolyEntity, Dictionary<string, string>> polyToDic = poly =>
-        //{
-        //  return new Dictionary<string, string>()
-        //  {
-        //    { "name", poly.Name }
-        //  };
-        //};
+        Expression<Func<MySpecialEntity?, Dictionary<string, string>>> polyToBson = poly => new Dictionary<string, string>()
+        {
+          { nameof(MyPolyEntity.Name), (poly != null) ? poly.Name : string.Empty }
+        };        
+        Expression<Func<Dictionary<string, string>, MySpecialEntity?>> bsonToPoly = doc => new MySpecialEntity
+        {
+            Name = (doc.ContainsKey("name")) ? doc["name"] : string.Empty
+        };
 
-        //Func<Dictionary<string, string>, MyPolyEntity> dicToPoly = dic =>
-        //{
-        //  return new MyPolyEntity
-        //  {
-        //    Name = dic.TryGetValue("name", out string? name) ? name : string.Empty
-        //  };
-        //};
 
-        e.Property(p => p.MyPolys)
-        .HasElementName("myPolys")
+        e.Property(p => p.MySpecialProperty)
+        .HasElementName("mySpecial")
         .HasConversion(
-          polies => polies,
-          dics => dics)
-        ;
+          polyToBson,
+          bsonToPoly);
 
-        //e.OwnsMany(p => p.MyPolys/*)*/
-        //.HasElementName("myPolys")
-        //.Property(p => p.Name)
-        //.HasElementName("name"); 
       });
 
   }

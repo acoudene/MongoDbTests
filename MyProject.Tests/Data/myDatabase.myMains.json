@@ -2,7 +2,7 @@
   {
     "_id": {
       "$oid": "6669987d9a51243d4da9bb85"
-    },    
+    },
     "_t": "myMain",
     "mySubs": [
       {
@@ -12,14 +12,23 @@
         "result": "2"
       }
     ],
+    "mySpecial": { "name": "special1_fromSeed" },
     "myPolys": [
       {
         "_t": "myPoly",
-        "name": "poly1"
+        "name": "poly1",
+        "result": "C'est un texte"
       },
       {
         "_t": "myPoly",
-        "name": "poly2"
+        "name": "poly2",
+        "result": {
+          "$date": "2025-06-19T22:58:46.899Z"
+        }
+      },
+      {
+        "_t": "myPoly",
+        "name": 42
       }
     ]
   }
