@@ -13,7 +13,9 @@ public record MyMainEntity
 
   public MySpecialEntity? MySpecialProperty { get; set; }
 
-  //public List<MyPolyEntity> MyPolys { get; set; } = Enumerable.Empty<MyPolyEntity>().ToList();
+  public List<MyJsonEntity> MyJsonProperties { get; set; } = Enumerable.Empty<MyJsonEntity>().ToList();
+
+  public IList<MyPolyEntity> MyPolys { get; set; } = Enumerable.Empty<MyPolyEntity>().ToList();
 
   //public List<Dictionary<string, string>> MyPolys { get; set; } = Enumerable.Empty<Dictionary<string, string>>().ToList();
 }

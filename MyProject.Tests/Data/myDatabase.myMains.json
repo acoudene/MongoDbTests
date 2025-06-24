@@ -13,6 +13,14 @@
       }
     ],
     "mySpecial": { "name": "special1_fromSeed" },
+    "myJsonProperties": [
+      {
+        "result": "text1_fromSeed"
+      },
+      {
+        "result": "text2_fromSeed"
+      }
+    ],
     "myPolys": [
       {
         "_t": "myPoly",
@@ -33,4 +41,3 @@
     ]
   }
 ]
-

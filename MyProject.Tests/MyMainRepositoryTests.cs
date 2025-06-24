@@ -117,7 +117,10 @@ public class MyMainRepositoryTests : IAsyncLifetime
       //  //new Dictionary<string, object> { { "name", "value1" } },
       //  //new Dictionary<string, object> { { "name", "value2" } }
       //],
-      MySpecialProperty = new MySpecialEntity { Name = "Special1" }
+      MySpecialProperty = new MySpecialEntity { Name = "Special1" },
+      MyJsonProperties = [ 
+        new MyJsonEntity { Result = "JsonData" }, 
+        new MyJsonEntity { Result = 12 }]
     });
     
     await dbContext.SaveChangesAsync();
